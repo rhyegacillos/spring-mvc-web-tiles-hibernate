@@ -10,5 +10,7 @@ public interface UsersDAO {
 
     boolean exists(String username);
 
+    User getUser(String username);
+
     List<User> getAllUsers();
 }

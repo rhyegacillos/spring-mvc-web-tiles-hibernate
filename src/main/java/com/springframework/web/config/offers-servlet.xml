@@ -3,14 +3,13 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:jee="http://www.springframework.org/schema/jee"
        xmlns:security="http://www.springframework.org/schema/security"
-       xmlns:tx="http://www.springframework.org/schema/cache"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       xmlns:webflow-config="http://www.springframework.org/schema/webflow-config"
+       xsi:schemaLocation=" http://www.springframework.org/schema/webflow-config http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.4.xsd
+                            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
                             http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-                            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
-                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
     <context:component-scan base-package="com.springframework.web" />
     <mvc:annotation-driven />
@@ -49,6 +48,7 @@
         <security:intercept-url pattern="/newAccount" access="permitAll()"/>
         <security:intercept-url pattern="/createAccount" access="permitAll()"/>
         <security:intercept-url pattern="/accountCreated" access="permitAll()"/>
+        <security:intercept-url pattern="/message" access="permitAll()"/>
         <security:intercept-url pattern="/webjars/**" access="permitAll()"/>
         <security:intercept-url pattern="/static/**" access="permitAll()"/>
         <security:intercept-url pattern="/createOffer" access="isAuthenticated()"/>
@@ -68,4 +68,25 @@
 
     <bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
 
+    <webflow-config:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices">
+        <webflow-config:flow-location path="/WEB-INF/flows/contact-flow.xml" id="message" />
+    </webflow-config:flow-registry>
+    <webflow-config:flow-executor id="executor" flow-registry="flowRegistry" />
+
+    <webflow-config:flow-builder-services id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator" validator="validator"/>
+
+    <bean id="flowIdAdapter" class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+        <property name="flowExecutor" ref="executor" />
+    </bean>
+    <bean id="flowHandlerMapping" class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+        <property name="flowRegistry" ref="flowRegistry" />
+        <property name="order" value="0" />
+    </bean>
+    <bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator">
+        <property name="viewResolvers" ref="tilesViewResolver" />
+    </bean>
+
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+
+    </bean>
 </beans>

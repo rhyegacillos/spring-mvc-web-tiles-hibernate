@@ -34,12 +34,14 @@ public class UsersDAOImpl implements UsersDAO {
 
     public boolean exists(String username) {
 
-        User user = session().find(User.class, username);
+        User user = getUser(username);
 
-        if (user != null)
-            return true;
-        else
-            return false;
+        return user != null;
+    }
+
+    @Override
+    public User getUser(String username) {
+        return session().find(User.class, username);
     }
 
     @Override

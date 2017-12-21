@@ -7,7 +7,6 @@
 <table class="table table-bordered table-striped table-hover text-center">
     <thead>
     <tr class="bg-primary">
-        <th>ID</th>
         <th>Name</th>
         <th>Email</th>
         <th>Text</th>
@@ -16,9 +15,8 @@
     <tbody>
     <c:forEach var="offer" items="${offers}">
         <tr>
-            <td>${offer.id}</td>
             <td>${offer.user.name}</td>
-            <td>${offer.user.email}</td>
+            <td><a href="<c:url value='/message?uid=${offer.username}' />">contact</a> </td>
             <td>${offer.text}</td>
         </tr>
     </c:forEach>

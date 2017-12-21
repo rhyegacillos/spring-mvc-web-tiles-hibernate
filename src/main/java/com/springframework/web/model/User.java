@@ -9,9 +9,10 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Entity(name = "users")
-public class User {
+public class User implements Serializable {
 
     @Id
     @NotBlank

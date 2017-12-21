@@ -45,4 +45,12 @@
         <put-attribute name="title" value="Denied Page" />
         <put-attribute name="content" value="/WEB-INF/tiles/accessDenied.jsp" />
     </definition>
+    <definition name="showContactForm" extends="default">
+        <put-attribute name="title" value="Send Message" />
+        <put-attribute name="content" value="/WEB-INF/tiles/contact.jsp" />
+    </definition>
+    <definition name="messageSent" extends="default">
+        <put-attribute name="title" value="Message Sent" />
+        <put-attribute name="content" value="/WEB-INF/tiles/messageSent.jsp" />
+    </definition>
 </tiles-definitions>

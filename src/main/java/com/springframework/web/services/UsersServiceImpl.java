@@ -31,6 +31,16 @@ public class UsersServiceImpl implements UsersService {
         return usersDAO.exists(username);
     }
 
+    @Transactional
+    @Override
+    public User getUser(String username) {
+        if(username != null){
+            return usersDAO.getUser(username);
+        } else  {
+            return null;
+        }
+    }
+
     @Override
     @Secured("ROLE_ADMIN")
     @Transactional
