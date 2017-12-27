@@ -6,16 +6,14 @@
     <definition name="default" template="/WEB-INF/templates/default.jsp">
         <put-attribute name="title" value="Homepage" />
         <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="toolbar" value="" />
         <put-attribute name="content" value="/WEB-INF/tiles/content.jsp" />
         <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
     </definition>
     <definition name="home" extends="default">
         <put-attribute name="title" value="Homepage" />
+        <put-attribute name="toolbar" value="/WEB-INF/tiles/toolbar.jsp" />
         <put-attribute name="content" value="/WEB-INF/tiles/home.jsp" />
-    </definition>
-    <definition name="offers" extends="default">
-        <put-attribute name="title" value="Current Offers" />
-        <put-attribute name="content" value="/WEB-INF/tiles/offers.jsp" />
     </definition>
     <definition name="login" extends="default">
         <put-attribute name="title" value="Login" />
@@ -52,5 +50,9 @@
     <definition name="messageSent" extends="default">
         <put-attribute name="title" value="Message Sent" />
         <put-attribute name="content" value="/WEB-INF/tiles/messageSent.jsp" />
+    </definition>
+    <definition name="messages" extends="default">
+        <put-attribute name="title" value="Messages" />
+        <put-attribute name="content" value="/WEB-INF/tiles/messages.jsp" />
     </definition>
 </tiles-definitions>

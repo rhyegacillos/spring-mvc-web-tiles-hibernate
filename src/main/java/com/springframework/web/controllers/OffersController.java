@@ -55,8 +55,6 @@ public class OffersController {
         } else
             offersService.delete(offer.getId());
 
-
-
         return "redirect:/";
     }
 }

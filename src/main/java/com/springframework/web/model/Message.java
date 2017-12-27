@@ -2,10 +2,7 @@ package com.springframework.web.model;
 
 import com.springframework.web.validation.ValidEmail;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -28,6 +25,7 @@ public class Message implements Serializable {
 
     @ValidEmail
     private String email;
+
     private String username;
 
     public Message() { }
@@ -87,4 +85,6 @@ public class Message implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+
+
 }

@@ -27,17 +27,21 @@ public class MessagesDAOImpl implements MessagesDAO {
 
     @Override
     public List<Message> getMessages(String username) {
-        return session().createQuery("from message where users.username=:username", Message.class).getResultList();
+      //  return session().createQuery("from messages where users.username=:username", Message.class).getResultList();
+        Query<Message> query = session().createQuery("from messages m where m.username=:username");
+        query.setParameter("username", username);
+
+        return query.getResultList();
     }
 
     @Override
     public List<Message> getMessages() {
-        return session().createQuery("from message ", Message.class).getResultList();
+        return session().createQuery("from messages ", Message.class).getResultList();
     }
 
     @Override
     public Message getMessage(int id) {
-        Query<Message> query = session().createQuery("from message p where p.id= :id");
+        Query<Message> query = session().createQuery("from messages p where p.id= :id");
         query.setParameter("id", id);
 
         return query.uniqueResult();

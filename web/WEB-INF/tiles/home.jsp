@@ -23,18 +23,3 @@
     </tbody>
 </table>
 <p/>
-<c:choose>
-    <c:when test="${hasOffer}">
-        <p><a href="${pageContext.request.contextPath}/createOffer">Edit / Delete your current offer</a></p>
-    </c:when>
-    <c:otherwise>
-        <p><a href="${pageContext.request.contextPath}/createOffer">Add New Offer</a></p>
-    </c:otherwise>
-</c:choose>
-
-
-<sec:authorize access="hasRole('ROLE_ADMIN')">
-    <p><a href="${pageContext.request.contextPath}/admin">Admin</a></p>
-</sec:authorize>
-
-

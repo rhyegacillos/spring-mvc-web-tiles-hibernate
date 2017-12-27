@@ -56,6 +56,16 @@ table thead tr th {
     background-color: darkred;
 }
 
+.toolbar {
+    position: relative;
+    margin-top: 10px;
+    padding-left: 40px;
+}
+
+div.links a {
+    padding-right: 10px;
+}
+
 a.login {
     position: absolute;
     top: 15px;
@@ -66,4 +76,40 @@ a.login {
 a.title {
     color: white;
     font-size: 35px;
+}
+
+div.message {
+    margin-bottom: 20px;
+    border-bottom: 1px dotted goldenrod;
+}
+
+span.subject {
+    font-size:large;
+    color: brown;
+    font-weight: bold;
+}
+
+span.messageContent {
+    display: block;
+    font-style: italic;
+}
+
+span.name {
+   color: chocolate;
+}
+
+form.replyForm {
+    padding: 20px;
+    display: none;
+}
+
+textarea.replyArea {
+    width: 400px;
+    height: 200px;
+}
+
+input.btn {
+    margin-top: 5px;
+    display: block;
+    font-weight: bold;
 }

@@ -21,4 +21,5 @@ public class MessageServiceImpl implements MessageService {
     public void sendMessage(Message message) {
         messagesDAO.saveOrUpdate(message);
     }
+
 }

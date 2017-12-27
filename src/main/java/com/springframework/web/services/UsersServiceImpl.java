@@ -1,6 +1,8 @@
 package com.springframework.web.services;
 
+import com.springframework.web.DAO.MessagesDAO;
 import com.springframework.web.DAO.UsersDAO;
+import com.springframework.web.model.Message;
 import com.springframework.web.model.Offer;
 import com.springframework.web.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,12 @@ import java.util.List;
 public class UsersServiceImpl implements UsersService {
 
     private UsersDAO usersDAO;
+    private MessagesDAO messagesDAO;
 
     @Autowired
-    public UsersServiceImpl(@Qualifier("usersDAOImpl") UsersDAO usersDAO) {
+    public UsersServiceImpl(@Qualifier("usersDAOImpl") UsersDAO usersDAO, @Qualifier("messagesDAOImpl") MessagesDAO messagesDAO) {
         this.usersDAO = usersDAO;
+        this.messagesDAO = messagesDAO;
     }
 
     @Transactional
@@ -46,5 +50,11 @@ public class UsersServiceImpl implements UsersService {
     @Transactional
     public List<User> getAllUsers() {
         return usersDAO.getAllUsers();
+    }
+
+    @Transactional
+    @Override
+    public List<Message> getMessages(String username) {
+        return messagesDAO.getMessages(username);
     }
 }

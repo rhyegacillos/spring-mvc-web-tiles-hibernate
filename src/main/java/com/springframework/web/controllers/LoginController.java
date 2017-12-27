@@ -1,7 +1,9 @@
 package com.springframework.web.controllers;
 
+import com.springframework.web.model.Message;
 import com.springframework.web.model.User;
 import com.springframework.web.services.UsersService;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.dao.DataAccessException;
@@ -9,13 +11,14 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class LoginController {
@@ -76,5 +79,30 @@ public class LoginController {
     @GetMapping("/denied")
     public String showDeniedPage() {
         return "accessDenied";
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/getMessages",produces = "application/json")
+    public Map<String, Object> getMessages(Principal principal) {
+
+        List<Message> messages = null;
+
+        if(principal == null) {
+            messages = new ArrayList<>();
+        } else {
+            String username = principal.getName();
+            messages = usersService.getMessages(username);
+        }
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("messages", messages);
+        data.put("number", messages.size());
+
+        return data;
+    }
+
+    @GetMapping("/messages")
+    public String showMessages() {
+        return "messages";
     }
 }
