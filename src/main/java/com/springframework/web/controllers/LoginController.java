@@ -101,6 +101,24 @@ public class LoginController {
         return data;
     }
 
+    @ResponseBody
+    @PostMapping(value = "/sendMessage",produces = "application/json")
+    public Map<String, Object> sendMessage(Principal principal, @RequestBody Map<String, Object> data) {
+
+        String text = (String) data.get("text");
+        String name = (String) data.get("name");
+        String email = (String) data.get("email");
+        int target = (int) data.get("target");
+
+        System.out.println(name + ":" + email + ":" + text);
+
+        Map<String, Object> rval = new HashMap<>();
+        rval.put("success", true);
+        rval.put("target", target);
+
+        return rval;
+    }
+
     @GetMapping("/messages")
     public String showMessages() {
         return "messages";

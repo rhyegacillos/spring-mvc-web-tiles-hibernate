@@ -92,6 +92,10 @@ function showMessages(data) {
         nameSpan.appendChild(link);
         nameSpan.appendChild(document.createTextNode(")"));
 
+        var alertSpan = document.createElement("span");
+        alertSpan.setAttribute("class", "alert");
+        alertSpan.setAttribute("id", "alert" + i);
+
         var replyForm = document.createElement("form");
         replyForm.setAttribute("class", "replyForm");
         replyForm.setAttribute("id", "form" + i);
@@ -104,11 +108,11 @@ function showMessages(data) {
         replyButton.setAttribute("class", "btn btn-info");
         replyButton.setAttribute("type", "button");
         replyButton.setAttribute("value", "Reply");
-        replyButton.onclick = function (j) {
+        replyButton.onclick = function (j, name, email) {
             return function () {
-                sendMessage(j);
+                sendMessage(j, name, email);
             }
-        }(i);
+        }(i, message.name, message.email);
 
         replyForm.appendChild(textarea);
         replyForm.appendChild(replyButton);
@@ -116,6 +120,7 @@ function showMessages(data) {
         messageDiv.appendChild(subjectSpan);
         messageDiv.appendChild(contentSpan);
         messageDiv.appendChild(nameSpan);
+        messageDiv.appendChild(alertSpan);
         messageDiv.appendChild(replyForm);
 
         $("#messages").append(messageDiv);
@@ -140,7 +145,26 @@ function startTimer() {
     timer = window.setInterval(updatePage, 5000);
 }
 
-function sendMessage(i) {
-    alert($("#textarea" + i).val());
+function sendMessage(i, name, email) {
+    var text = $("#textarea" + i).val();
+    $.ajax({
+        "type": "POST",
+        "url": "/sendMessage",
+        "data": JSON.stringify({"target": i, "text": text, "name": name, "email": email}),
+        "success": success,
+        "error": error,
+        contentType: "application/json",
+        dataType: "json"
+
+    })
 }
 
+function success(data) {
+    $("#form" + data.target).toggle();
+    $("#alert" + data.target).text("Message sent")
+    startTimer();
+}
+
+function error(data) {
+    alert("error")
+}

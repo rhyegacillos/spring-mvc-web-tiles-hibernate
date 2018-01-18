@@ -52,6 +52,7 @@
         <security:intercept-url pattern="/static/**" access="permitAll()"/>
         <security:intercept-url pattern="/messages" access="isAuthenticated()"/>
         <security:intercept-url pattern="/getMessages" access="isAuthenticated()"/>
+        <security:intercept-url pattern="/sendMessage" access="isAuthenticated()"/>
         <security:intercept-url pattern="/createOffer" access="isAuthenticated()"/>
         <security:intercept-url pattern="/doCreate" access="isAuthenticated()"/>
         <security:intercept-url pattern="/offerCreated" access="isAuthenticated()"/>

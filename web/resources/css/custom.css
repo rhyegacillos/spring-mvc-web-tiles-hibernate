@@ -113,3 +113,11 @@ input.btn {
     display: block;
     font-weight: bold;
 }
+
+span.alert {
+    display: block;
+    font-weight: bold;
+    color: green;
+    padding: 0;
+    margin: 0;
+}
