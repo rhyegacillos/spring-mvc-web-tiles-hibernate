@@ -3,11 +3,10 @@ package com.springframework.web.controllers;
 import com.springframework.web.model.Message;
 import com.springframework.web.model.User;
 import com.springframework.web.services.UsersService;
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Profile;
-import org.springframework.dao.DataAccessException;
-import org.springframework.dao.DuplicateKeyException;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +23,9 @@ import java.util.Map;
 public class LoginController {
 
     private UsersService usersService;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Autowired
     public LoginController(UsersService usersService) {
@@ -109,6 +111,19 @@ public class LoginController {
         String name = (String) data.get("name");
         String email = (String) data.get("email");
         int target = (int) data.get("target");
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+        mail.setFrom("1602023@ub.edu.ph");
+        mail.setTo(email);
+        mail.setSubject("Re: " + name + ", your message");
+        mail.setText(text);
+
+        try {
+            mailSender.send(mail);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Can't send message");
+        }
 
         System.out.println(name + ":" + email + ":" + text);
 
